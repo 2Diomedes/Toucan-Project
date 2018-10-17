@@ -9,11 +9,33 @@ get_header();
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main">
 	
-		<h1>WE ARE LAUNCHING IN</h1>
-		<h2>5</h2>
-		<h3>DAYS</h3>
-		<p>Codi - High quality Bottstrap HTML5 Coming Soon Landing Page Template Comes with fully responsive layout, Cool features, and Clean design.
-		</p>
+		<h1><?php echo get_post_meta( get_the_ID(), 'Title', true ); ?></h1>
+
+
+		<?php
+			$release = get_post_meta( get_the_ID(), 'Date', true );
+			$datetime1 = new DateTime();
+			$datetime2 = new DateTime($release);
+			$diff = date_diff($datetime1, $datetime2);
+			$diffBase = $diff->format('%a - %H:%M:%S');	
+		?>
+
+		<table>
+			<tr>
+				<td><?php echo $diff->format('%a'); ?></td>
+				<td><?php echo $diff->format('%H'); ?></td>
+				<td><?php echo $diff->format('%M'); ?></td>
+				<td><?php echo $diff->format('%S'); ?></td>
+			</tr>
+			<tr>
+				<td class="tdText">DAYS</td>
+				<td class="tdText">HOURS</td>
+				<td class="tdText">MINUTES</td>
+				<td class="tdText">SECONDS</td>
+			</tr>
+		</table>
+
+		<p><?php echo get_post_meta( get_the_ID(), 'Texte', true ); ?></p>
 
 		<!-- Button trigger modal -->
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
