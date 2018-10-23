@@ -122,14 +122,14 @@ add_action( 'widgets_init', '_s_widgets_init' );
 function _s_scripts() {
 	wp_enqueue_style( 'toucan-style', get_stylesheet_uri() );
 
-	wp_enqueue_style( 'toucan-navigation', get_stylesheet_uri() . '/js/navigation.js', array(), '20151215', true );
 	
-	wp_enqueue_script( 'toucan-jquery', get_template_directory_uri() . '../../../../../node_modules/jquery/dist/jquery.slim.min.js', array(), '20151215', true );
+	wp_enqueue_script( 'toucan-jquery', get_template_directory_uri() . '../../../../../node_modules/jquery/dist/jquery.min.js', array(), '20151215', true );
 
-	wp_enqueue_script( 'toucan-script', get_template_directory_uri() . '/js/script.js', array(), '20151215', true );
-
+	
 	wp_enqueue_script( '_s-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
-
+	
+	wp_enqueue_script( 'toucan-script', get_template_directory_uri() . '/js/script.js', array(), '20151215', true );
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}

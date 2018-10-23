@@ -17,22 +17,28 @@ function register_install () {
         `username` VARCHAR(50) NOT NULL UNIQUE, 
         PRIMARY KEY (`id`)) $charset_collate;";
 
-    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-    dbDelta( $sql );
+    $wpdb->query( $sql );
 }
 register_activation_hook( __FILE__, 'register_install' );
 register_activation_hook( __FILE__, 'register_install_data' );
 
 if (isset($_POST['username']) AND isset($_POST['email'])){
+    global $wpdb;
     
     $username = $_POST['username'];
     $email = $_POST['email'];
-    
-    $sql = "INSERT INTO `wp_customers` (`id`, `email`, `username`) 
-    VALUES (NULL, '".$email."', '".$username."')";
 
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-dbDelta( $sql );
+	$wpdb->insert( 
+        $wpdb->prefix.'customers',
+        array(
+            'email' => $email,
+            'username' => $username,
+        ),
+        array(
+            '%s',
+            '%s',
+        )
+    );
 }
 
 add_action('admin_menu','test_plugin_setup_menu');
@@ -47,7 +53,7 @@ function display(){
     
     foreach ($resultats as $customs) {
         ?> 
-        <p><?php echo $customs->username; echo $customs->email; ?></p>
+        <p><span><?php echo $customs->username; ?>:</span> <?php echo $customs->email; ?></p> 
         <?php   
     }
 }
